@@ -1,20 +1,20 @@
-const Client = require('../index').Client
+const ankai = require('../index').ankai
 const Discord = require('discord.js')
-const config = require('../config.json')
 
-Client.on('ready', async() => {
+ankai.on('ready', async() => {
 
-    console.log(`Logged in as ${Client.user.tag}!`)
+    console.log(`Logged in as ${ankai.user.tag}!`)
     
-  let data = Client.SlashCmds
+  let data = ankai.SlashCmds
 
   let filt1 = data.filter(c => c.Globally == true)
-           
-  await Client.application?.commands.set(filt1)
-           
+  console.log('(/) Start refreshing globally SlashCommands')         
+  await ankai.application?.commands.set(filt1)
+ console.log('(/) Success refreshing globally SlashCommands')
   let filt2 = data.filter(c => c.Globally == false)
-            
-  await Client.guilds.cache.get(config.testGuildId).commands.set(filt2)            
+   console.log('(/) Start refreshing local SlashCommands')          
+  await ankai.guilds.cache.get(ankai.config.testGuildId).commands.set(filt2)
+   console.log('(/) Success refreshing local SlashCommands')          
             
 })
 

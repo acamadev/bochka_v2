@@ -1,20 +1,15 @@
 const Discord = require('discord.js')
+const randomanime = require('random-anime')
 
 module.exports = {
-    name: 'echo',
-    description: 'Echo the message',
-    Globally: false,
+    name: 'anime',
+    description: 'Получить рандомную аниме фотачку..',
+    Globally: true,
     Permissions: [Discord.PermissionFlagsBits.SendMessages],
-    options: [{
-        name: 'message',
-        description: 'The message to echo',
-        type: Discord.ApplicationCommandOptionType.String,
-        required: true
-    }],
 
-    run: async (Client, inter) => {
-
-        inter.reply({content: inter.options.getString('message'), ephemeral: true})
+    run: async (ankai, inter) => {
+        const get_anime_photo = randomanime.anime()
+        inter.reply({ content: `${get_anime_photo}`})
     
     }
 

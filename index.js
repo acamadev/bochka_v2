@@ -1,13 +1,14 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
-const Client = new Discord.Client({
+const ankai = new Discord.Client({
     intents: [Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildIntegrations, Discord.GatewayIntentBits.GuildMembers]
 })
 
-Client.SlashCmds = new Discord.Collection()
-Client.events = new Discord.Collection()
-module.exports.Client = Client
+ankai.SlashCmds = new Discord.Collection()
+ankai.events = new Discord.Collection()
+ankai.config = require('./config.json')
+module.exports.ankai = ankai
 
 // Events
 fs.readdirSync('./events/').forEach(file => {
@@ -17,7 +18,7 @@ fs.readdirSync('./events/').forEach(file => {
     files.forEach(event => {
         const getEvent = require(`./events/${event}`)
         try {
-            Client.events.set(getEvent.name, getEvent);
+            ankai.events.set(getEvent.name, getEvent);
         
         } catch(e) {
             return console.log(e)
@@ -36,7 +37,7 @@ fs.readdirSync('./SlashCommands/').forEach(dir => {
         sfiles.forEach(file => {
             const getCommand = require(`./SlashCommands/${dir}/${file}`)
             try {
-                Client.SlashCmds.set(getCommand.name, getCommand);
+                ankai.SlashCmds.set(getCommand.name, getCommand);
             } catch(e) {
                 return console.log(e)
             }
@@ -46,4 +47,4 @@ fs.readdirSync('./SlashCommands/').forEach(dir => {
 })
 
 
-Client.login('Your Bot Token')
+ankai.login(ankai.config.token)
