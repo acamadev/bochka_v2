@@ -5,7 +5,6 @@ const Discord = require('discord.js')
 ankai.on('interactionCreate', async inter => {
 
     if(inter.type === InteractionType.ApplicationCommand) {
-
         let slashCmds = ankai.SlashCmds.get(inter.commandName)
 
         if(!slashCmds.Permissions) slashCmds.Permissions = []
