@@ -16,7 +16,7 @@ module.exports = {
 
         run: async (ankai, inter) => {
             try {
-                const e = await shell.execSync(`${inter.options.getString('message')}`).toString()
+                const e = await shell.execSync(`${inter.options.getString('args')}`).toString()
                 inter.reply({ content:`${e}`, ephemeral: true })
             } catch (err) {
                 inter.reply({ content: `An error occurred: ${err}`, ephemeral: true })
