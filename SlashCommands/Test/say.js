@@ -6,30 +6,24 @@ module.exports = {
     description: 'Отправить мсг в чатикс',
     Globally: true,
     Permissions: [Discord.PermissionFlagsBits.Administrator],
-    options: [{
-        name: 'message',
-        description: 'Какое сообщение отправить в этот чат?',
-        type: Discord.ApplicationCommandOptionType.String,
-        required: true
-    },
-    {
-        name: 'channel',
-        description: 'чат?',
-        type: Discord.ApplicationCommandOptionType.Channel,
-        required: false
-    }
-],
-
+    options: [
+        {
+            name: 'message',
+            description: 'Какое сообщение отправить в этот чат?',
+            type: Discord.ApplicationCommandOptionType.String,
+            required: true
+        },
+        {
+            name: 'channel',
+            description: 'чат?',
+            type: Discord.ApplicationCommandOptionType.Channel,
+            required: false
+        }
+    ],
     run: async (ankai, inter) => {
-        const ch = inter.options.getChannel('channel');
         inter.deferReply();
-        if(ch) {
-        ankai.channels.cache.get(ch.id).send({ content: inter.options.getString('message') })
-        inter.deleteReply()
-} else {
-        inter.channel.send({ content: inter.options.getString('message') })
-        inter.deleteReply()
-      }
+        const ch = inter.options.getChannel('channel');
+        let target = ch ? ankai.channels.cache.get(ch.id) : inter.channel;
+        target.send(`${inter.options.getString('message')}`);
     }
-
-}
+};

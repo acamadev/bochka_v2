@@ -13,18 +13,20 @@ ankai.commands = new Discord.Collection()
 ankai.config = require('./config.json')
 module.exports.ankai = ankai
 
-const globPromise = promisify(glob);
+fs.readdirSync('./events/').forEach(file => {
+    let files = fs.readdirSync('./events/').filter(file => file.endsWith('.js'))
+    if(files.length <= 0) return 
 
-// Events
-async function events() {
-    const eventFiles = await globPromise(`${process.cwd()}/events/*.js`);
-    eventFiles.map((value) => {
-    require(value)
-    const file = require(value);
-    const splitted = value.split("/");
-    const filename = splitted[splitted.length - 1];
-  })
-}
+    files.forEach(event => {
+        const getEvent = require(`./events/${event}`)
+        try {
+            ankai.events.set(getEvent.name, getEvent);
+        
+        } catch(e) {
+            return console.log(e)
+        }
+    })
+})
 
 // Slash Commands
 fs.readdirSync('./SlashCommands/').forEach(dir => {
@@ -45,23 +47,6 @@ fs.readdirSync('./SlashCommands/').forEach(dir => {
 
     })
 })
-async function cmd() {
-// content commands
-const commandFiles = await globPromise(`${process.cwd()}/commands/*.js`);
-    commandFiles.map((value) => {
-        const file = require(value);
-        const splitted = value.split("/");
-        const directory = splitted[splitted.length - 2];
-
-        if (file.name) {
-        	console.log(file.name)
-            const properties = { directory, ...file };
-            ankai.commands.set(file.name, properties);
-        }
-    });
-   }
-cmd()
-events()
 
 
 ankai.login(ankai.config.token)

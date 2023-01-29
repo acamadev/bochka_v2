@@ -26,8 +26,8 @@ module.exports = {
        inter.reply({
       content: `${target}`, embeds: [
         {
-          author: { name: `Вахуи, лан ща челы будут сосаца трах`, iconURL: inter.member.displayAvatarURL({dynamic: true}) },
-          description: comment ? `**${target}** ну че лашара будешь? Комментарий: ${comment}` : `**${target}** ну че лашара будешь?`,
+          author: { name: `Дуэль???`, iconURL: inter.member.displayAvatarURL({dynamic: true}) },
+          description: comment ? `**${target}** ну че будешь? Комментарий: ${comment}` : `**${target}** ну че будешь?`,
           thumbnail: { url: target.displayAvatarURL({ dynamic: true }) },
           color: "3158326"
         }
@@ -62,7 +62,7 @@ if(fightresult === `${target}`){
          embeds: [
         {
           author: { name: `ИДЕТ ИДЕТ ИДЕТ...`, iconURL: inter.member.displayAvatarURL({dynamic: true}) },
-          description: `САСАМБА!₽?#(81192`,
+          description: `₽?#(81192`,
           thumbnail: { url: target.displayAvatarURL({ dynamic: true }) },
           color: "3158326"
         }
@@ -73,8 +73,8 @@ if(fightresult === `${target}`){
         msg.edit({
          embeds: [
         {
-          author: { name: `ХА ДОЛБАЕБЫ`, iconURL: inter.member.displayAvatarURL({dynamic: true}) },
-          description: `${inter.member} бля лошара ахахахахахахахахахахахахахахахахахахахахахахахахахахахах, ${target} красавчик`,
+          author: { name: `Haha`, iconURL: inter.member.displayAvatarURL({dynamic: true}) },
+          description: `${inter.member} бля lmao.., ${target} красавчик`,
           thumbnail: { url: target.displayAvatarURL({ dynamic: true }) },
           color: "3158326"
         }
@@ -88,7 +88,7 @@ if(fightresult === `${target}`){
          embeds: [
         {
           author: { name: `ИДЕТ ИДЕТ ИДЕТ...`, iconURL: inter.member.displayAvatarURL({dynamic: true}) },
-          description: `САСАМБА!₽?#(81192`,
+          description: `!₽?#(81192`,
           thumbnail: { url: target.displayAvatarURL({ dynamic: true }) },
           color: "3158326"
         }
@@ -99,8 +99,8 @@ if(fightresult === `${target}`){
         msg.edit({
          embeds: [
         {
-          author: { name: `ХА ДОЛБАЕБЫ`, iconURL: inter.member.displayAvatarURL({dynamic: true}) },
-          description: `${target} бля лошара ахахахахахахахахахахахахахахахахахахахахахахахахахахахах, ${inter.member} красавчик`,
+          author: { name: `XDD`, iconURL: inter.member.displayAvatarURL({dynamic: true}) },
+          description: `${target} бля lmao.., ${inter.member} красавчик`,
           thumbnail: { url: target.displayAvatarURL({ dynamic: true }) },
           color: "3158326"
         }
