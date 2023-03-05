@@ -1,17 +1,24 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const { glob } = require('glob')
-const { promisify } = require("util");
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
 
 const ankai = new Discord.Client({
-    intents: [Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMessages, Discord.GatewayIntentBits.GuildIntegrations, Discord.GatewayIntentBits.MessageContent, Discord.GatewayIntentBits.GuildMembers]
-})
+intents: [
+Discord.GatewayIntentBits.Guilds,
+Discord.GatewayIntentBits.GuildMessages,
+Discord.GatewayIntentBits.GuildIntegrations,
+Discord.GatewayIntentBits.MessageContent,
+Discord.GatewayIntentBits.GuildMembers
+]
+});
 
-ankai.SlashCmds = new Discord.Collection()
-ankai.events = new Discord.Collection()
-ankai.commands = new Discord.Collection()
-ankai.config = require('./config.json')
-module.exports.ankai = ankai
+ankai.SlashCmds = new Discord.Collection();
+ankai.events = new Discord.Collection();
+ankai.commands = new Discord.Collection();
+ankai.config = require('./config.json');
+ankai.db = new QuickDB();
+module.exports.ankai = ankai;
 
 fs.readdirSync('./events/').forEach(file => {
     let files = fs.readdirSync('./events/').filter(file => file.endsWith('.js'))

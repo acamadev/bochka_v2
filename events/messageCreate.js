@@ -1,9 +1,9 @@
-const ankai = require("../index").ankai
+const ankai = require("../index.js").ankai
 const { InteractionType } = require('discord.js')
 const Discord = require('discord.js')
 
 ankai.on('messageCreate', async message => {
-	console.log(message)
+
     if (
         message.author.bot ||
        message.channel.type !== 0 ||

@@ -1,38 +1,48 @@
 const Discord = require('discord.js');
-const shell = require("child_process")
+const fs = require('fs');
 
 module.exports = {
-    name: 'restart',
-    description: 'cmd',
-    Globally: true,
-    Permissions: [Discord.PermissionFlagsBits.Administrator],
-    options: [
-        {
-            name: 'args',
-            description: '1',
-            type: Discord.ApplicationCommandOptionType.String,
-            required: true
-        }],
+  name: 'restart',
+  description: 'cmd',
+  Globally: true,
+  Permissions: [Discord.PermissionFlagsBits.Administrator],
+  options: [
+    {
+      name: 'args',
+      description: '1',
+      type: Discord.ApplicationCommandOptionType.String,
+      required: true
+    }
+  ],
+  run: async (ankai, inter) => {
+    const args = inter.options.getString('args');
+    if (args === 'all') {
+      const commandFiles = fs
+        .readdirSync('./SlashCommands')
+        .filter(file => file.endsWith('.js'));
 
-        run: async (ankai, inter) => {
-            const args = inter.options.getString('args');
+      commandFiles.forEach(file => {
+        delete require.cache[require.resolve(`./SlashCommands/${file}`)];
+        const command = require(`./SlashCommands/${file}`);
+        ankai.SlashCmds.set(command.name, command);
+      });
+      return inter.reply('vse');
+    }
 
-            if (!args.length) return inter.send('?');
-            
-            const commandName = args[0];
-            const command = inter.ankai.SlashCmds.get(commandName) || inter.ankai.SlashCmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-            
-            if (!command) return inter.send('?');
-            
-            delete require.cache[require.resolve(`./${command.name}.js`)];
-            
-            try {
-                const newCommand = require(`./${command.name}.js`);
-                inter.ankai.SlashCmds.set(newCommand.name, newCommand);
-                inter.send('+');
-            } catch (error) {
-                console.error(error);
-                inter.send(`error: ${error}`);
-            }
-        }
-}
+    const commandName = args;
+    const command = ankai.SlashCmds.get(commandName) || ankai.SlashCmds.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+    if (!command) return inter.reply('?');
+
+    delete require.cache[require.resolve(`./${command.name}.js`)];
+
+    try {
+      const newCommand = require(`./${command.name}.js`);
+      ankai.SlashCmds.set(newCommand.name, newCommand);
+      inter.reply('+');
+    } catch (error) {
+      console.error(error);
+      inter.reply(`error: ${error}`);
+    }
+  }
+};

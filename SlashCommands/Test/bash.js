@@ -19,7 +19,7 @@ module.exports = {
                 const e = await shell.execSync(`${inter.options.getString('args')}`).toString()
                 inter.reply({ content:`${e}`, ephemeral: true })
             } catch (err) {
-                inter.reply({ content: `An error occurred: ${err}`, ephemeral: true })
+                inter.reply({ content: `An error occurred: ${err}6`, ephemeral: true })
             }
         }
     }

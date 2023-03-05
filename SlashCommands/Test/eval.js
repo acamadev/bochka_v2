@@ -37,11 +37,11 @@ module.exports = {
                     console.log('%s ms.\n%s', end, `inp: ${code}\n${clean(evaled)}`);
                     return inter.reply('result.length > 2000');
                 } else {
-                 inter.reply(`1000000 ms.\n\`\`\`js\n${result}\`\`\``);
+                 inter.reply({ content: `1000000 ms.\n\`\`\`js\n${result}\`\`\``, ephemeral: true });
                 }
             }
         } catch (err) {
-            inter.reply(`\`\`\`js\n// Error\n${err.name}: ${err.message}\`\`\``);
+            inter.reply({ content: `\`\`\`js\n// Error\n${err.name}: ${err.message}\`\`\``, ephemeral: true });
             console.log(`[eval] Error during eval: %s/n ${err}`);
         }
    }
